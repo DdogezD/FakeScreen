@@ -22,4 +22,16 @@ public class XUtils {
             Log.e(str, str2);
         }
     }
+
+    public static void xDebugLog(String str, String str2) {
+        if(BuildConfig.DEBUG) {
+            xLog(str, str2);
+        }
+    }
+
+    public static void xDebugLog(String str, String str2, Throwable th) {
+        if(BuildConfig.DEBUG) {
+            xLog(str, str2, th);
+        }
+    }
 }
