@@ -12,4 +12,4 @@ This is the `me.neversleep.plusplus` module that was unpublished from the LSPose
 
 The earliest source code I can find for now is https://github.com/nian0114/FakeScreen. Probably that the original source code repo has also been unpublished.
 
-This version is supposed to work on Android 8~16, and is confirmed to work on my Android 16 device.
+This version is supposed to work on Android 8~16, and is confirmed to work on my Android 16 device (the main feature works while the "disable sleep" feature does not).
