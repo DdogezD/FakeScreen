@@ -24,14 +24,14 @@ public class HookImpl {
                     protected void beforeHookedMethod(XC_MethodHook.MethodHookParam methodHookParam) throws Throwable {
                          super.beforeHookedMethod(methodHookParam);
                          try {
-                              XUtils.xLog("neversleep", "beforeH00kedMethod: start");
+                              XUtils.xDebugLog("neversleep", "beforeH00kedMethod: start");
                               xSharedPreferences.reload();
                               int i = 0;
                               if (!xSharedPreferences.getBoolean("power", false)) {
                                    Log.e("neversleep", "beforeH00kedMethod: power is false");
                                    return;
                               }
-                              XUtils.xLog("neversleep", "beforeH00kedMethod: power is true");
+                              XUtils.xDebugLog("neversleep", "beforeH00kedMethod: power is true");
                               Class<?> cls = Class.forName("android.view.SurfaceControl", false, classLoader);
                               IBinder iBinder = getDisplayBinder(classLoader);
                               if (iBinder != null) {
@@ -42,7 +42,7 @@ public class HookImpl {
                                    this.mode = i;
                               }
                               methodHookParam.setResult(null);
-                              XUtils.xLog("neversleep", "replace success");
+                              XUtils.xDebugLog("neversleep", "replace success");
                          } catch (Throwable th) {
                               XUtils.xLog("neversleep", "beforeH00kedMethod: error:", th);
                          }
