@@ -9,10 +9,10 @@ import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.N)
 public class QuickStartService extends TileService {
-    public static final String TAG = "QurkStartService";
+    public static final String TAG = "QuickStartService";
     private SharedPreferences xConf;
 
-    @Override // android.app.Service
+    @Override
     public void onCreate() {
         super.onCreate();
         try {
@@ -23,7 +23,7 @@ public class QuickStartService extends TileService {
         }
     }
 
-    @Override // android.service.quicksettings.TileService
+    @Override
     public void onClick() {
         super.onClick();
         if (this.xConf == null) {
@@ -32,34 +32,40 @@ public class QuickStartService extends TileService {
         int state = getQsTile().getState();
         if (state == 1) {
             getQsTile().setState(2);
+            getQsTile().setLabel("仅熄屏");
             this.xConf.edit().putBoolean("power", true).apply();
         } else if (state == 2) {
             getQsTile().setState(1);
+            getQsTile().setLabel("正常休眠");
             this.xConf.edit().putBoolean("power", false).apply();
         }
         getQsTile().updateTile();
         Log.e(TAG, "onClick: " + getQsTile().getState());
     }
 
-    @Override // android.service.quicksettings.TileService
+    @Override
     public void onTileAdded() {
         super.onTileAdded();
         if (this.xConf == null) {
             return;
         }
-        getQsTile().setState(this.xConf.getBoolean("power", false) ? 2 : 1);
+        boolean isPowerOn = this.xConf.getBoolean("power", false);
+        getQsTile().setState(isPowerOn ? 2 : 1);
+        getQsTile().setLabel(isPowerOn ? "仅熄屏" : "正常休眠");
         getQsTile().updateTile();
-        Log.e(TAG, "onTileAdded: " + this.xConf.getBoolean("power", false) + ":" + getQsTile().getState());
+        Log.e(TAG, "onTileAdded: " + isPowerOn + ":" + getQsTile().getState());
     }
 
-    @Override // android.service.quicksettings.TileService
+    @Override
     public void onStartListening() {
         super.onStartListening();
         if (this.xConf == null) {
             return;
         }
-        getQsTile().setState(this.xConf.getBoolean("power", false) ? 2 : 1);
+        boolean isPowerOn = this.xConf.getBoolean("power", false);
+        getQsTile().setState(isPowerOn ? 2 : 1);
+        getQsTile().setLabel(isPowerOn ? "仅熄屏" : "正常休眠");
         getQsTile().updateTile();
-        Log.e(TAG, "onStartListening: update" + this.xConf.getBoolean("power", false) + ":" + getQsTile().getState());
+        Log.e(TAG, "onStartListening: update" + isPowerOn + ":" + getQsTile().getState());
     }
 }
