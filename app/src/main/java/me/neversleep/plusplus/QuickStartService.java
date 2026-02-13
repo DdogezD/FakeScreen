@@ -65,7 +65,7 @@ public class QuickStartService extends TileService {
         boolean isPowerOn = this.xConf.getBoolean("power", false);
         getQsTile().setState(isPowerOn ? 2 : 1);
         getQsTile().setLabel(isPowerOn ? "仅熄屏" : "正常休眠");
-        getQsTile().updateTile();
+        getQsTile().updateTile();  // 强制更新 tile 状态
         Log.e(TAG, "onStartListening: update" + isPowerOn + ":" + getQsTile().getState());
     }
 }
